@@ -8,9 +8,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <curl/curl.h>
 
 int main (){
+    
+    printf("hello world/n");
     
     
     //http://api.openweathermap.org/data/2.5/weather?q=Evreux,fr&appid=1480331759b8687b28f5ca6e11bf04a9
@@ -23,9 +26,13 @@ int main (){
     curl_easy_setopt(session,  CURLOPT_WRITEDATA, fp); //On balance notre pointeur de fichier comme destination
     curl_easy_setopt(session,  CURLOPT_WRITEFUNCTION, fwrite);
     
+    if (fp == NULL){
+        return 2;
+    }
+    
     curl_easy_perform(session);
     fclose(fp);
     curl_easy_cleanup(session);
     
-    return 0;
+    return 1;
 }
